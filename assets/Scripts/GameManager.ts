@@ -34,7 +34,7 @@ export class GameManager extends Component {
 
         }
 
-        cuentaAtrasCarga(); //prueba funciones asincronicas y carga de escenas
+        //cuentaAtrasCarga(); //prueba funciones asincronicas y carga de escenas
 
     }
 
