@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, ProgressBar, director } from 'cc';
+import { _decorator, Component, ProgressBar, find } from 'cc';
+import { GameManager } from './GameManager';
 const { ccclass, property } = _decorator;
 
 
@@ -14,8 +15,16 @@ export class GameLoader extends Component {
     })
     progressBar: ProgressBar = null!;
 
+    @property({
+        type: GameManager
+    })
+    gameManager: GameManager = null!;
+
 
     onLoad() {
+
+        const gameManagerNode = find("GameManager");
+        this.gameManager = gameManagerNode.getComponent("GameManager");
 
         const startLoading = async () => { // Usar una función flecha para que `this` se herede del contexto de la instancia
             const loadCompleted = await loadingSimulator();
@@ -42,7 +51,7 @@ export class GameLoader extends Component {
 
         startLoading().then(loadCompleted => {
 
-            if (loadCompleted) director.loadScene("Menu");
+            if (loadCompleted) this.gameManager.changeScene("Menu");
             else console.log("Error Loading Resources"); // Podriamos manejar el error usando reject en la Promise 
         });
 
