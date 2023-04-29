@@ -18,7 +18,9 @@ export class GameLoader extends Component {
     onLoad() {
 
         const startLoading = async () => { // Usar una función flecha para que `this` se herede del contexto de la instancia
-            const result = await loadingSimulator();
+            const loadCompleted = await loadingSimulator();
+
+            return loadCompleted;
         };
 
         const loadingSimulator = () => { 
@@ -32,17 +34,17 @@ export class GameLoader extends Component {
 
                     if (loadingProgress === 100) {
                         clearInterval(interval);
-                        resolve('Loading Complete');
+                        resolve(true);
                     }
                 }, 500);
             });
         };
 
-        startLoading();
+        startLoading().then(loadCompleted => {
 
-    }
-
-    update() {
+            if (loadCompleted) director.loadScene("Menu");
+            else console.log("Error Loading Resources"); // Podriamos manejar el error usando reject en la Promise 
+        });
 
     }
 
