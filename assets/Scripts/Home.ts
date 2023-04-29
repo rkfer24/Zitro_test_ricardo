@@ -11,10 +11,14 @@ export class Home extends Component {
 
         xhr.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                console.log("Resutlado POSITIVO");
+                console.log("Resultado POSITIVO");
 
                 let response = JSON.parse(xhr.responseText);
-                console.log(response);
+                let datetime = response.datetime;
+
+                let dateTimeCurrentHour = datetime.substring(datetime.indexOf('T')+1, datetime.indexOf('T')+6);
+
+                console.log(dateTimeCurrentHour);
             }
         };
 
