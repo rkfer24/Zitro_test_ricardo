@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Label } from 'cc';
+import { _decorator, Component, Label, director } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('Home')
@@ -51,6 +51,16 @@ export class Home extends Component {
         }
 
 
+        
+    }
+
+    goQuiz() {
+        director.loadScene("Quiz");
+        
+    }
+
+    goSlots() {
+        director.loadScene("Slots");
         
     }
 }
