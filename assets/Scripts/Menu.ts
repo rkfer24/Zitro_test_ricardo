@@ -20,18 +20,18 @@ export class Menu extends Component {
     //Variables
     private timer = 0;
 
-
+    url = "http://worldtimeapi.org/api/timezone/Europe/Madrid";
 
 
     updateClock = () => {
 
         const xhr = new XMLHttpRequest();
-        const url = "http://worldtimeapi.org/api/timezone/Europe/Madrid";
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 let response = JSON.parse(xhr.responseText);
+                console.log(response);
                 let datetime = response.datetime;
 
                 let dateTimeCurrentHour = datetime.substring(datetime.indexOf('T') + 1, datetime.indexOf('T') + 9);
@@ -42,7 +42,7 @@ export class Menu extends Component {
             }
         };
 
-        xhr.open("GET", url, true);
+        xhr.open("GET", this.url, true);
         xhr.send();
 
     }
