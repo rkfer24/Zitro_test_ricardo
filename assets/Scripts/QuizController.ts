@@ -25,5 +25,12 @@ export class QuizController extends Component {
     }
 
 
+    beginQuiz(){
+
+
+
+    }
+
+
 }
 
