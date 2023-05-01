@@ -1,0 +1,50 @@
+{
+  "preguntas": [
+    {
+      "Pregunta": "En qué ciudad asiática se alzan las torres Petronas?",
+      "Respuestas": [ "Kuala Lumpur", "Bangkok", "Tokio" ]
+    },
+    {
+      "Pregunta": "De qué ciudad es la ópera más famosa?",
+      "Respuestas": [ "Sídney", "Nueva York", "Hong Kong" ]
+    },
+    {
+      "Pregunta": "En qué estado de Estados Unidos debemos viajar para ver el Monte Rushmore?",
+      "Respuestas": [ "Dakota del Sur", "Nueva York", "Texas" ]
+    },
+    {
+      "Pregunta": "A qué país del Sudeste Asiático debemos viajar para contemplar el popular templo de Angkor Wat?",
+      "Respuestas": [ "Camboya", "Vietnam", "Tailandia" ]
+    },
+    {
+      "Pregunta": "Dónde se pueden observar en directo las pirámides de Gizeh?",
+      "Respuestas": [ "Egipto", "México", "India" ]
+    },
+    {
+      "Pregunta": "En qué ciudad americana se erige el Rockefeller Center?",
+      "Respuestas": [ "Nueva York", "Los Ángeles", "Miami" ]
+    },
+    {
+      "Pregunta": "Sobre qué cerro se encuentra el popular Cristo Redentor de Río de Janeiro?",
+      "Respuestas": [ "Cerro Corcovado", "Cerro Aconcagua", "Cerro Fitz Roy" ]
+    },
+    {
+      "Pregunta": "En qué ciudad española se construyó la Alhambra?",
+      "Respuestas": [ "Granada", "Madrid", "Barcelona" ]
+    },
+    {
+      "Pregunta": "En qué país latinoamericano se encuentra Chichén Itzá?",
+      "Respuestas": [ "México", "Brasil", "Colombia" ]
+    },
+    {
+      "Pregunta": "Qué río que pasa por Londres cruza el Tower Bridge?",
+      "Respuestas": [ "Río Támesis", "Río Danubio", "Río Sena" ]
+    }
+  ]
+}
+
+
+
+
+
+
