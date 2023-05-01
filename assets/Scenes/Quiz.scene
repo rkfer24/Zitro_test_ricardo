@@ -1196,7 +1196,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Option1",
+    "_name": "Answer1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 32
@@ -1246,7 +1246,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Answer1",
+    "_name": "0",
     "_objFlags": 0,
     "_parent": {
       "__id__": 33
@@ -1537,7 +1537,7 @@
     },
     "component": "",
     "_componentId": "3f374j8T6xJmLFKEQS87Ypj",
-    "handler": "goHome",
+    "handler": "quizResponse",
     "customEventData": ""
   },
   {
@@ -1594,7 +1594,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Option2",
+    "_name": "Answer2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 32
@@ -1644,7 +1644,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Answer2",
+    "_name": "1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 44
@@ -1935,7 +1935,7 @@
     },
     "component": "",
     "_componentId": "3f374j8T6xJmLFKEQS87Ypj",
-    "handler": "goHome",
+    "handler": "quizResponse",
     "customEventData": ""
   },
   {
@@ -1992,7 +1992,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Option3",
+    "_name": "Answer3",
     "_objFlags": 0,
     "_parent": {
       "__id__": 32
@@ -2042,7 +2042,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Answer3",
+    "_name": "2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 55
@@ -2333,8 +2333,8 @@
     },
     "component": "",
     "_componentId": "3f374j8T6xJmLFKEQS87Ypj",
-    "handler": "goHome",
-    "customEventData": ""
+    "handler": "quizResponse",
+    "customEventData": "holatt"
   },
   {
     "__type__": "cc.UITransform",

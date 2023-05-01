@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, AssetManager, assetManager, JsonAsset, SpriteFrame, js, TextAsset} from 'cc';
+import { _decorator, Component, Node, find, Label, AssetManager, assetManager, JsonAsset, SpriteFrame, js, TextAsset, EventHandler} from 'cc';
 import { GameManager } from './GameManager';
 const { ccclass, property } = _decorator;
 
@@ -6,6 +6,7 @@ const { ccclass, property } = _decorator;
 @ccclass('QuizController')
 export class QuizController extends Component {
 
+    //PROPERTIES
     @property({
         type: GameManager
     })
@@ -34,9 +35,12 @@ export class QuizController extends Component {
     @property({
         type: String
     })
+
+    //VARIABLES
     pathQuizJSON: string = "";
 
-    private parsedQuiz = new Object();
+    quizJSON = JSON;
+
 
     start = () => {
 
@@ -51,59 +55,43 @@ export class QuizController extends Component {
 
     }
 
-
-    /*beginQuiz = () => {
-
-            
-
-        this.labelQuestion.string = this.parsedQuiz.preguntas[0].Pregunta;
-        this.labelAnswer1.string = this.parsedQuiz.preguntas[0].Respuestas[0];
-        this.labelAnswer2.string = this.parsedQuiz.preguntas[0].Respuestas[1];
-        this.labelAnswer3.string = this.parsedQuiz.Preguntas[0].Respuestas[2];
-
-
-
-    }
-    */
-
     onLoad = () => {
 
-        console.log("Intenando leer JSON. Ruta: " + this.pathQuizJSON);
-
-        // remote Text
-        assetManager.loadRemote(this.pathQuizJSON, TextAsset, function (err, textAsset) {
+        assetManager.loadRemote(this.pathQuizJSON, TextAsset, (err, textAsset) => {
             if (err) {
-
                 console.log("error");
                 return;
-
             }
 
-            const jsonPreguntas = textAsset.json;
-
-
-            const pregunta = jsonPreguntas.preguntas[0].Pregunta;
-            console.log(pregunta); // Imprimir el texto de la primera pregunta*/
-
-             
+            this.quizJSON = textAsset.json;
+            this.beginQuiz();
         });
-        /*assetManager.resources.load(this.pathQuizJSON, (err, data) {
 
-            if (err) {
-                console.log("Tira error y la ruta del JSON es: " + this.pathQuizJSON);
-            }
-            this.parsedQuiz = JSON.parse(this.data);
+    }
 
-            console.log(this.parsedQuiz);
-        });*/
+    beginQuiz = () => {
+        
+        this.labelQuestion.string = this.quizJSON.preguntas[0].Pregunta;
+        this.labelAnswer1.string = this.quizJSON.preguntas[0].Respuestas[0];
+        this.labelAnswer2.string = this.quizJSON.preguntas[0].Respuestas[1];
+        this.labelAnswer3.string = this.quizJSON.preguntas[0].Respuestas[2];
+        
+    }
+
+    quizResponse(response: EventTarget) {
 
 
-        /*
-        this.parsedQuiz = JSON.parse(this.jsonQuizPath);
+        if ((this.quizJSON.preguntas[0].Respuestas[0]) == (response.currentTarget._children[0]._components[1]._string)) {
 
-        this.beginQuiz();
+            console.log("Correct Answer!");
 
-        */
+        } else {
+
+            console.log("Incorrect Answer");
+
+        }
+
+
     }
 
 }
