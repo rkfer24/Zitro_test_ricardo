@@ -147,7 +147,7 @@ export class QuizController extends Component {
         }
 
         this.actualQuestion++;
-        this.nextQuestion;
+        this.nextQuestion();
 
     }
 
