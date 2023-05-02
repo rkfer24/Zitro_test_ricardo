@@ -124,7 +124,7 @@
       "b": 255,
       "a": 255
     },
-    "_string": "¿De qué ciudad \nes la ópera más famosa? ",
+    "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 40,
@@ -217,7 +217,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 122.5,
+      "y": 72.75,
       "z": 0
     },
     "_lrot": {
@@ -1230,7 +1230,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -290,
+      "x": -277.6,
       "y": 0,
       "z": 0
     },
@@ -1366,8 +1366,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 97.63,
-      "height": 50.4
+      "width": 200,
+      "height": 120
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1396,11 +1396,11 @@
       "b": 255,
       "a": 255
     },
-    "_string": "Back",
+    "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 49,
-    "_fontSize": 50,
+    "_actualFontSize": 36,
+    "_fontSize": 35,
     "_fontFamily": "calibri",
     "_lineHeight": 40,
     "_overflow": 2,
@@ -1426,8 +1426,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 200,
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1443,7 +1443,7 @@
     "node": {
       "__id__": 34
     },
-    "_enabled": false,
+    "_enabled": true,
     "__prefab": null,
     "_visFlags": 0,
     "_customMaterial": null,
@@ -1586,13 +1586,13 @@
     "__prefab": null,
     "_alignFlags": 12,
     "_target": null,
-    "_left": 50,
+    "_left": 0.08,
     "_right": 340,
     "_top": 0,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
-    "_isAbsLeft": true,
+    "_isAbsLeft": false,
     "_isAbsRight": true,
     "_isAbsTop": true,
     "_isAbsBottom": true,
@@ -1764,8 +1764,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 50
+      "width": 250,
+      "height": 120
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1794,11 +1794,11 @@
       "b": 255,
       "a": 255
     },
-    "_string": "Back",
+    "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 51,
-    "_fontSize": 50,
+    "_actualFontSize": 36,
+    "_fontSize": 35,
     "_fontFamily": "calibri",
     "_lineHeight": 40,
     "_overflow": 2,
@@ -1824,8 +1824,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 200,
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1841,7 +1841,7 @@
     "node": {
       "__id__": 45
     },
-    "_enabled": false,
+    "_enabled": true,
     "__prefab": null,
     "_visFlags": 0,
     "_customMaterial": null,
@@ -2026,7 +2026,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 290,
+      "x": 277.6,
       "y": 0,
       "z": 0
     },
@@ -2162,8 +2162,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 120,
-      "height": 50
+      "width": 200,
+      "height": 120
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2192,11 +2192,11 @@
       "b": 255,
       "a": 255
     },
-    "_string": "Back",
+    "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 51,
-    "_fontSize": 50,
+    "_actualFontSize": 36,
+    "_fontSize": 35,
     "_fontFamily": "calibri",
     "_lineHeight": 40,
     "_overflow": 2,
@@ -2222,8 +2222,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 200,
+      "height": 80
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2239,7 +2239,7 @@
     "node": {
       "__id__": 56
     },
-    "_enabled": false,
+    "_enabled": true,
     "__prefab": null,
     "_visFlags": 0,
     "_customMaterial": null,
@@ -2383,13 +2383,13 @@
     "_alignFlags": 36,
     "_target": null,
     "_left": 0,
-    "_right": 50,
+    "_right": 0.08,
     "_top": 0,
     "_bottom": 0,
     "_horizontalCenter": 0,
     "_verticalCenter": 0,
     "_isAbsLeft": true,
-    "_isAbsRight": true,
+    "_isAbsRight": false,
     "_isAbsTop": true,
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
@@ -2544,8 +2544,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 500,
-      "y": 500,
+      "x": 1000,
+      "y": 1000,
       "z": 1
     },
     "_layer": 33554432,
@@ -3047,20 +3047,20 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "_alignFlags": 41,
+    "_alignFlags": 42,
     "_target": null,
     "_left": 340,
     "_right": 340,
     "_top": 0,
     "_bottom": 0,
     "_horizontalCenter": 0,
-    "_verticalCenter": 0,
+    "_verticalCenter": 0.15,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
-    "_isAbsVerticalCenter": true,
+    "_isAbsVerticalCenter": false,
     "_originalWidth": 100,
     "_originalHeight": 0,
     "_alignMode": 1,
@@ -3080,7 +3080,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 700,
-      "height": 112.99999999999999
+      "height": 63
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",

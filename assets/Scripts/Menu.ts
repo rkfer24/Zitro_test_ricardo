@@ -31,7 +31,6 @@ export class Menu extends Component {
             if (xhr.readyState === 4 && xhr.status === 200) {
 
                 let response = JSON.parse(xhr.responseText);
-                console.log(response);
                 let datetime = response.datetime;
 
                 let dateTimeCurrentHour = datetime.substring(datetime.indexOf('T') + 1, datetime.indexOf('T') + 9);

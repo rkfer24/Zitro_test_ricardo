@@ -52,22 +52,30 @@ export class QuizController extends Component {
 
     questions; answers; actualQuestion; score;
 
+    JSONURL = "https://raw.githubusercontent.com/rkfer24/Zitro_test_ricardo/main/assets/Resources/JSON/Quiz.json";
+
     start = () => {
         const gameManagerNode = find("GameManager");
         this.gameManager = gameManagerNode.getComponent("GameManager");
     }
 
-    onLoad = () => {
-        assetManager.loadRemote(this.pathQuizJSON, TextAsset, (err, textAsset) => {
-            if (err) {
-                console.log("Error Leyendo JSON");
-                return;
-            }
+    async onLoad () {
 
-            this.quizJSON = textAsset.json;
-            this.beginQuiz();
-        });
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                this.quizJSON= JSON.parse(xhr.responseText);
+
+            }
+        };
+        await xhr.open("GET", this.JSONURL);
+        xhr.send();
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+               
+        this.beginQuiz();
     }
+
 
     goHome() {
         this.gameManager.changeScene("Menu");
@@ -130,11 +138,11 @@ export class QuizController extends Component {
             return;
         }
 
-        this.labelQuestion.string = "Test finalizado \nPuntuaci\u00F3n: " +this.score*10 + " / 100";
+        this.labelQuestion.string = "Test finalizado \nPuntuaci\u00F3n: " + this.score*10 + " / 100";
 
-        this.labelAnswer1.enabled = false;
-        this.labelAnswer2.enabled = false;
-        this.labelAnswer3.enabled = false;
+        this.labelAnswer1.node.getParent().active = false;
+        this.labelAnswer2.node.getParent().active = false;
+        this.labelAnswer3.node.getParent().active = false;
     }
 
     showQuestion(actualQuestion: number) {

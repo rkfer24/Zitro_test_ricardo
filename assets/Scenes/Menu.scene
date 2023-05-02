@@ -1544,6 +1544,7 @@
     "labelTime": {
       "__id__": 10
     },
+    "gameManager": null,
     "_id": "5awZHyqk1PsoUoayIhdAyF"
   },
   {
