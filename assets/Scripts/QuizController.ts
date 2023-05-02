@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, find, Label, AssetManager, assetManager, JsonAsset, SpriteFrame, js, TextAsset, EventHandler} from 'cc';
+import { _decorator, Component, Node, find, Label, AssetManager, assetManager, JsonAsset, SpriteFrame, js, TextAsset, EventHandler, Animation} from 'cc';
 import { GameManager } from './GameManager';
 const { ccclass, property } = _decorator;
 
@@ -16,6 +16,11 @@ export class QuizController extends Component {
         type: Label
     })
     labelQuestion: Label = null!;
+
+    @property({
+        type: Animation
+    })
+    questionAnimation: Animation = null!;
 
     @property({
         type: Label
@@ -37,18 +42,19 @@ export class QuizController extends Component {
     })
     pathQuizJSON: string = "";
 
-
+    @property({
+        type: Node
+    })
+    repplyPanel: Node = null!;
 
     //VARIABLES
     quizJSON = JSON;
 
-    questions; answers; actualQuestion;
+    questions; answers; actualQuestion; score;
 
     start = () => {
-
         const gameManagerNode = find("GameManager");
         this.gameManager = gameManagerNode.getComponent("GameManager");
-
     }
 
     onLoad = () => {
@@ -72,7 +78,8 @@ export class QuizController extends Component {
 
         this.questions = this.quizJSON;
         this.questions.preguntas = this.shuffle(this.questions.preguntas);
-        this.actualQuestion = 0;
+        this.actualQuestion = 0; 
+        this.score = 0;
 
         this.nextQuestion();
     }
@@ -117,36 +124,54 @@ export class QuizController extends Component {
 
     nextQuestion = () => {
 
+        if (this.actualQuestion < this.questions.preguntas.length) {
 
-        this.showQuestion(this.actualQuestion);
+            this.showQuestion(this.actualQuestion);
+            return;
+        }
 
+        this.labelQuestion.string = "Test finalizado \nPuntuaci\u00F3n: " +this.score*10 + " / 100";
 
+        this.labelAnswer1.enabled = false;
+        this.labelAnswer2.enabled = false;
+        this.labelAnswer3.enabled = false;
     }
 
     showQuestion(actualQuestion: number) {
 
 
+        this.questionAnimation.play("questionFadeIn");
         this.labelQuestion.string = this.questions.preguntas[actualQuestion].Pregunta;
+
         this.labelAnswer1.string = this.questions.preguntas[actualQuestion].Respuestas[0];
         this.labelAnswer2.string = this.questions.preguntas[actualQuestion].Respuestas[1];
         this.labelAnswer3.string = this.questions.preguntas[actualQuestion].Respuestas[2];
+
+
     }
 
 
-    quizResponse(response: EventTarget) {
+    async quizResponse(response: EventTarget) {
 
 
-        if ((this.quizJSON.preguntas[0].RespuestaCorrecta) == (response.currentTarget._children[0]._components[1]._string)) {
+        if ((this.quizJSON.preguntas[this.actualQuestion].RespuestaCorrecta) == (response.currentTarget._children[0]._components[1]._string)) {
 
             console.log("Correct Answer!");
+            this.repplyPanel.getComponentInChildren(Label).string = "Respuesta correcta";
+            this.score++;
 
         } else {
 
-            console.log("Incorrect Answer");    
+            console.log("Incorrect Answer");
+            this.repplyPanel.getComponentInChildren(Label).string = "Respuesta incorrecta";  
 
         }
-
+        
         this.actualQuestion++;
+        this.repplyPanel.active = true;
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        this.repplyPanel.active = false;
+
         this.nextQuestion();
 
     }
