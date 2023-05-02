@@ -1,47 +1,61 @@
 {
+  "\u003Chead\u003E": "\u003Cmeta",
+  "charset=\u0022UTF-8\u0022\u003E": "\u003C/head\u003E",
+
   "preguntas": [
     {
-      "Pregunta": "¿En qué ciudad asiática se alzan las torres Petronas?",
-      "Respuestas": [ "Kuala Lumpur", "Bangkok", "Tokio" ]
+      "Pregunta": "\u00BFEn qu\u00E9 ciudad asi\u00E1tica se alzan las torres Petronas?",
+      "Respuestas": [ "Kuala Lumpur", "Bangkok", "Tokio" ],
+      "RespuestaCorrecta": "Kuala Lumpur"
     },
     {
-      "Pregunta": "¿De qué ciudad es la ópera más famosa?",
-      "Respuestas": [ "Sídney", "Nueva York", "Hong Kong" ]
+      "Pregunta": "\u00BFDe qu\u00E9 ciudad es la \u00F3pera m\u00E1s famosa?",
+      "Respuestas": [ "S\u00EDdney", "Nueva York", "Hong Kong" ],
+      "RespuestaCorrecta": "Sídney"
     },
     {
-      "Pregunta": "¿En qué estado de Estados Unidos debemos viajar para ver el Monte Rushmore?",
-      "Respuestas": [ "Dakota del Sur", "Nueva York", "Texas" ]
+      "Pregunta": "\u00BFEn qu\u00E9 estado de Estados Unidos debemos viajar para ver el Monte Rushmore?",
+      "Respuestas": [ "Dakota del Sur", "Nueva York", "Texas" ],
+      "RespuestaCorrecta": "Dakota del Sur"
     },
     {
-      "Pregunta": "¿A qué país del Sudeste Asiático debemos viajar para contemplar el popular templo de Angkor Wat?",
-      "Respuestas": [ "Camboya", "Vietnam", "Tailandia" ]
+      "Pregunta": "\u00BFA qu\u00E9 pa\u00EDs del Sudeste Asi\u00E1tico debemos viajar para contemplar el popular templo de Angkor Wat?",
+      "Respuestas": [ "Camboya", "Vietnam", "Tailandia" ],
+      "RespuestaCorrecta": "Camboya"
     },
     {
-      "Pregunta": "¿Dónde se pueden observar en directo las pirámides de Gizeh?",
-      "Respuestas": [ "Egipto", "México", "India" ]
+      "Pregunta": "\u00BFD\u00F3nde se pueden observar en directo las pir\u00E1mides de Gizeh?",
+      "Respuestas": [ "Egipto", "M\u00E9xico", "India" ],
+      "RespuestaCorrecta": "Egipto"
     },
     {
-      "Pregunta": "¿En qué ciudad americana se erige el Rockefeller Center?",
-      "Respuestas": [ "Nueva York", "Los Ángeles", "Miami" ]
+      "Pregunta": "\u00BFEn qu\u00E9 ciudad americana se erige el Rockefeller Center?",
+      "Respuestas": [ "Nueva York", "Los \u00C1ngeles", "Miami" ],
+      "RespuestaCorrecta": "Nueva York"
     },
     {
-      "Pregunta": "¿Sobre qué cerro se encuentra el popular Cristo Redentor de Río de Janeiro?",
-      "Respuestas": [ "Cerro Corcovado", "Cerro Aconcagua", "Cerro Fitz Roy" ]
+      "Pregunta": "\u00BFSobre qu\u00E9 cerro se encuentra el popular Cristo Redentor de R\u00EDo de Janeiro?",
+      "Respuestas": [ "Cerro Corcovado", "Cerro Aconcagua", "Cerro Fitz Roy" ],
+      "RespuestaCorrecta": "Cerro Corcovado"
     },
     {
-      "Pregunta": "¿En qué ciudad española se construyó la Alhambra?",
-      "Respuestas": [ "Granada", "Madrid", "Barcelona" ]
+      "Pregunta": "\u00BFEn qu\u00E9 ciudad espa\u00F1ola se encuentra la Alhambra?",
+      "Respuestas": [ "Granada", "Madrid", "Barcelona" ],
+      "RespuestaCorrecta": "Granada"
     },
     {
-      "Pregunta": "¿En qué país latinoamericano se encuentra Chichén Itzá?",
-      "Respuestas": [ "México", "Brasil", "Colombia" ]
+      "Pregunta": "\u00BFEn qu\u00E9 pa\u00EDs latinoamericano se encuentra Chich\u00E9n Itz\u00E1?",
+      "Respuestas": [ "M\u00E9xico", "Brasil", "Colombia" ],
+      "RespuestaCorrecta": "M\u00E9xico"
     },
     {
-      "Pregunta": "¿Qué río que pasa por Londres cruza el Tower Bridge?",
-      "Respuestas": [ "Río Támesis", "Río Danubio", "Río Sena" ]
+      "Pregunta": "\u00BFQu\u00E9 r\u00EDo que pasa por Londres cruza el Tower Bridge?",
+      "Respuestas": [ "R\u00EDo T\u00E1mesis", "R\u00EDo Danubio", "R\u00EDo Sena" ],
+      "RespuestaCorrecta": "R\u00EDo T\u00E1mesis"
     }
   ]
 }
+
 
 
 
