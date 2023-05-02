@@ -42,7 +42,7 @@ export class QuizController extends Component {
     //VARIABLES
     quizJSON = JSON;
 
-    questions; answers;
+    questions; answers; actualQuestion;
 
     start = () => {
 
@@ -68,13 +68,13 @@ export class QuizController extends Component {
 
     }
 
-
-
     beginQuiz = () => {
 
         this.questions = this.quizJSON;
         this.questions.preguntas = this.shuffle(this.questions.preguntas);
-        this.showQuestion();
+        this.actualQuestion = 0;
+
+        this.nextQuestion();
     }
 
     shuffle(questions: any[]) { // Algoritmo Fisher–Yates randomizar
@@ -115,22 +115,28 @@ export class QuizController extends Component {
         return questions;
     }
 
-    showQuestion() {
+    nextQuestion = () => {
 
-        console.log(this.questions.preguntas[0].Pregunta);
-        console.log(this.questions.preguntas[0].Respuestas[0] + this.questions.preguntas[0].Respuestas[1] + this.questions.preguntas[0].Respuestas[2]);
 
-        this.labelQuestion.string = this.questions.preguntas[0].Pregunta;
-        this.labelAnswer1.string = this.questions.preguntas[0].Respuestas[0];
-        this.labelAnswer2.string = this.questions.preguntas[0].Respuestas[1];
-        this.labelAnswer3.string = this.questions.preguntas[0].Respuestas[2];
+        this.showQuestion(this.actualQuestion);
+
+
+    }
+
+    showQuestion(actualQuestion: number) {
+
+
+        this.labelQuestion.string = this.questions.preguntas[actualQuestion].Pregunta;
+        this.labelAnswer1.string = this.questions.preguntas[actualQuestion].Respuestas[0];
+        this.labelAnswer2.string = this.questions.preguntas[actualQuestion].Respuestas[1];
+        this.labelAnswer3.string = this.questions.preguntas[actualQuestion].Respuestas[2];
     }
 
 
     quizResponse(response: EventTarget) {
 
 
-        if ((this.quizJSON.preguntas[0].Respuestas[0]) == (response.currentTarget._children[0]._components[1]._string)) {
+        if ((this.quizJSON.preguntas[0].RespuestaCorrecta) == (response.currentTarget._children[0]._components[1]._string)) {
 
             console.log("Correct Answer!");
 
@@ -140,9 +146,10 @@ export class QuizController extends Component {
 
         }
 
+        this.actualQuestion++;
+        this.nextQuestion;
+
     }
-
-
 
 
 }
