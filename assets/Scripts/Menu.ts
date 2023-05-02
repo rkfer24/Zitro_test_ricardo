@@ -16,15 +16,20 @@ export class Menu extends Component {
     })
     gameManager: GameManager = null!;
 
-
-    //Variables
-    private timer = 0;
-
     url = "http://worldtimeapi.org/api/timezone/Europe/Madrid";
 
 
-    updateClock = () => {
 
+
+    start = () => {
+
+        this.updateClockRequest();
+        const gameManagerNode = find("GameManager");
+
+        this.gameManager = gameManagerNode.getComponent("GameManager");
+    }
+
+    updateClockRequest = () => {
         const xhr = new XMLHttpRequest();
 
         xhr.onreadystatechange = () => {
@@ -32,18 +37,49 @@ export class Menu extends Component {
 
                 let response = JSON.parse(xhr.responseText);
                 let datetime = response.datetime;
-
-                let dateTimeCurrentHour = datetime.substring(datetime.indexOf('T') + 1, datetime.indexOf('T') + 9);
-
-                if (this.labelTime) {
-                    this.labelTime.string = dateTimeCurrentHour;
-                }
+                
+                const myDate = new Date(datetime);
+                this.timer(myDate);
+                
+                
             }
         };
-
         xhr.open("GET", this.url, true);
         xhr.send();
+    }
 
+    timer = (date) => {
+        var h = date.getHours(); // 0 - 23
+        var m = date.getMinutes(); // 0 - 59
+        var s = date.getSeconds(); // 0 - 59
+        var session = "AM";
+
+        if (h == 0) {
+            h = 12;
+        }
+
+        if (h > 12) {
+            h = h - 12;
+            session = "PM";
+        }
+
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+
+        var time = h + ":" + m + ":" + s + " " + session;
+
+        document.getElementById("MyClockDisplay").innerText = time;
+        document.getElementById("MyClockDisplay").textContent = time;
+
+        setTimeout(() => {
+            const now = new Date(date);
+            now.setSeconds((now.getSeconds()) + 1 );
+            this.timer(now);
+        }, 1000);
+
+
+        this.labelTime.string = time;
     }
 
     goQuiz() {
@@ -53,26 +89,6 @@ export class Menu extends Component {
 
     goSlots() {
         this.gameManager.changeScene("Slots");
-    }
-
-    start = () => {
-
-        this.updateClock();
-
-        const gameManagerNode = find("GameManager");
-        this.gameManager = gameManagerNode.getComponent("GameManager");
-
-    }
-
-    update(deltaTime: number) {
-
-        this.timer += deltaTime;
-
-        if (this.timer > 1) {
-
-            this.updateClock();
-            this.timer = 0;
-        }
     }
 
 }
