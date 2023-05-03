@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, Animation, SpriteFrame, Sprite } from 'cc';
+import { _decorator, Component, Node, Animation, SpriteFrame, Sprite, math } from 'cc';
 const { ccclass, property } = _decorator;
 
 
@@ -64,37 +64,51 @@ export class SlotMachine extends Component {
 
     }
 
-loadRodillos() {
 
-    const rodilloLeft = ["Limon", "SlotMachine", "Siete", "Mora", "BigWin", "Fresa"];
-    const rodilloMid = ["BigWin", "Mora", "Siete", "SlotMachine", "Fresa", "Limon"];
-    const rodilloRight = ["Fresa", "Limon", "Siete", "BigWin", "SlotMachine", "Mora"];
+    rodillosLogic = [];
+    rodillosNodes = [];
 
-    const rodillosLogic = [rodilloLeft, rodilloMid, rodilloRight];
-    const rodillosNodes = [this.rodilloLeftNode, this.rodilloMidNode, this.rodilloRightNode]
+    loadRodillos =() =>{
 
-    for (var j = 0; j < rodillosNodes.length; j++) {
+        const rodilloLeft = ["Limon", "SlotMachine", "Siete", "Mora", "BigWin", "Fresa"];
+        const rodilloMid = ["BigWin", "Mora", "Siete", "SlotMachine", "Fresa", "Limon"];
+        const rodilloRight = ["Fresa", "Limon", "Siete", "BigWin", "SlotMachine", "Mora"];
 
-        for (var i = 0; i < (rodillosLogic[j].length * 2); i++) {
+        this.rodillosLogic = [rodilloLeft, rodilloMid, rodilloRight];
+        this.rodillosNodes = [this.rodilloLeftNode, this.rodilloMidNode, this.rodilloRightNode]
 
-            var indexIcon = i;
+        for (var j = 0; j < this.rodillosNodes.length; j++) {
 
-            if (indexIcon >= rodillosLogic[j].length) {
+            for (var i = 0; i < (this.rodillosLogic[j].length * 2); i++) {
 
-                // Para el truco de duplicar los rollos y tenemos que restar el tamaño del rollo cuando llegamos al límite
-                indexIcon = indexIcon - rodillosLogic[j].length;
+                var indexIcon = i;
+
+                if (indexIcon >= this.rodillosLogic[j].length) {
+
+                    // Para el truco de duplicar los rollos y tenemos que restar el tamaño del rollo cuando llegamos al límite
+                    indexIcon = indexIcon - this.rodillosLogic[j].length;
+                }
+
+                const icon = this.rodillosLogic[j][indexIcon]; // seleccionamos el string del icono de la lista que tiene que coincidir con el nombre de las properties antes creadas
+
+                this.rodillosNodes[j].getChildByName(i.toString()).getComponent(Sprite).spriteFrame = this[icon]; // cambiamos el sprite del nodo de los rodillos
             }
-
-            const icon = rodillosLogic[j][indexIcon]; // seleccionamos el string del icono de la lista que tiene que coincidir con el nombre de las properties antes creadas
-
-            rodillosNodes[j].getChildByName(i.toString()).getComponent(Sprite).spriteFrame = this[icon]; // cambiamos el sprite del nodo de los rodillos
         }
+
+        this.shuffleRodillos();
     }
-}
 
-    shuffleRodillos() {
+    shuffleRodillos =() =>{
 
-        
+        function getRndInteger(max) {
+            return Math.floor(Math.random() * (max));
+        }
+
+        //Seleccion RANDOM icono 
+        console.log(this.rodillosLogic[0][getRndInteger(this.rodillosLogic[0].length)]);
+        console.log(this.rodillosLogic[1][getRndInteger(this.rodillosLogic[1].length)]);
+        console.log(this.rodillosLogic[2][getRndInteger(this.rodillosLogic[2].length)]);
+
     }
 
 
