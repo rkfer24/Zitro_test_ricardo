@@ -1,5 +1,5 @@
 
-import { _decorator, Component, Node, Animation, SpriteFrame, Sprite, math } from 'cc';
+import { _decorator, Component, Node, Animation, SpriteFrame, Sprite, math, animation, } from 'cc';
 const { ccclass, property } = _decorator;
 
 
@@ -63,7 +63,7 @@ export class SlotMachine extends Component {
 
     distanceBetweenIcones: number = 125;
 
-
+    private canISpin = true;
 
 
 
@@ -112,7 +112,12 @@ export class SlotMachine extends Component {
 
     }
 
-    shuffleRodillos =() =>{
+    spinRodillos = async () =>{
+
+        if (!this.canISpin) return;
+
+        this.canISpin = false
+
 
         function getRndInteger(max) {
             return Math.floor(Math.random() * (max));
@@ -123,24 +128,70 @@ export class SlotMachine extends Component {
             const randomNumber = getRndInteger(this.rodillosLogic[i].length)
             console.log("Rodillo número " +i + ":")
             console.log(this.rodillosLogic[i][randomNumber]);
-            moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
+            //moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
+
+            this.animateRodillo(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
+
+            await new Promise(resolve => setTimeout(resolve, 2000)); //Tiempo de 2 segundos entre ellos yendo de izq a derecha
         }
 
-
-
-        function moveRodillos(rodillos: Node, position: number, distance: number) {
-            rodillos.setPosition(0, distance * -position, 0);
-
-        }
     }
 
 
     public playButton() {
 
-        this.shuffleRodillos();
+        if (!this.canISpin){
+            return;
+        }
+
+        this.spinRodillos();
     }
 
 
+
+    animateRodillo = async (rodillo: Node, result: number, distance: number) => {
+
+        
+        //rodillo.setPosition(0, distance * -result, 0); poner rodillo donde queiro
+
+        const animationRodillo = rodillo.getComponent(Animation);    
+        var animationState = animationRodillo.getState("rodilloRoll");
+
+
+        animationState.speed = 0.1;
+        animationRodillo.play();
+
+        accelerate(animationState, 0.1);
+
+        async function accelerate(animState, animSpeed: number) {
+
+            animSpeed += 0.1;
+            animState.speed = animSpeed;
+
+            if (animSpeed < 2) {
+                setTimeout(() => {
+                    accelerate(animState, animSpeed);
+                }, 300);
+            }
+            else {
+                console.log("Maximum speed reached");
+                rodillo.setPosition(0, distance * -result, 0); //poner rodillo donde queiro
+                deAccelerate(animState, animSpeed);
+            }
+        }
+
+        function deAccelerate(animState, animSpeed) {
+            animSpeed -= 0.1;
+            animState.speed = animSpeed;
+
+            if (animSpeed > 0.2) {
+                setTimeout(() => {
+                    deAccelerate(animState, animSpeed);
+                }, 300);
+            }
+        }
+
+    }
 }
 
 
