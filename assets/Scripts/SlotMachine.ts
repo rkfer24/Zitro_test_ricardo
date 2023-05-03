@@ -66,21 +66,23 @@ export class SlotMachine extends Component {
 
     loadRodillos() {
 
-        const rodilloLeft = ["BigWin", "Fresa", "Siete", "Limon", "Mora", "SlotMachine"];
-        const rodilloMid = ["Mora", "BigWin", "Siete", "SlotMachine", "Fresa", "Limon"];
-        const rodilloRight = ["Limon", "Mora", "Siete", "BigWin", "SlotMachine", "Fresa"];
+        const rodilloLeft = ["BigWin", "SlotMachine", "Siete", "Mora", "Limon", "Fresa"];
+        const rodilloMid = ["BigWin", "Mora", "Siete", "SlotMachine", "Fresa", "Limon"];
+        const rodilloRight = ["Fresa", "Limon", "Siete", "BigWin", "SlotMachine", "Mora"];
 
         const rodillosLogic = [rodilloLeft, rodilloMid, rodilloRight];
         const rodillosNodes = [this.rodilloLeftNode, this.rodilloMidNode, this.rodilloRightNode]
 
         for (var j = 0; j < rodillosNodes.length; j++) {
 
-            for (var i = 0; i < rodillosLogic[0].length; i++) {
+            for (var i = 0; i < rodillosLogic[0].length+1; i++) {
 
-                const icon = rodillosLogic[j][i];
 
-                console.log(icon);
-                rodillosNodes[j].getChildByName(i.toString()).getComponent(Sprite).spriteFrame = this.[icon];
+                const icon = rodillosLogic[j][i]; //seleccionamos el string del icono de la lista que tiene que coincidir con el nombre de las properties antes creadas
+
+                rodillosNodes[j].getChildByName(i.toString()).getComponent(Sprite).spriteFrame = this[icon]; //cambiamos el sprite del nodo de los rodillos 
+
+                //this.rodilloLeftNode.(i.toString()).getComponent(Sprite).spriteFrame = this[icon];
 
 
 
@@ -90,6 +92,11 @@ export class SlotMachine extends Component {
         }
 
 
+    }
+
+    shuffleRodillos() {
+
+        
     }
 
 
