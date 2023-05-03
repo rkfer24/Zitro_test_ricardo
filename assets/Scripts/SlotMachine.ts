@@ -161,7 +161,12 @@ export class SlotMachine extends Component {
         animationState.speed = 0.1;
         animationRodillo.play();
 
+        
+        console.log("ANIMATION WRAP MODE?" + animationState.wrapMode);
+
         accelerate(animationState, 0.1);
+
+        
 
         async function accelerate(animState, animSpeed: number) {
 
@@ -175,7 +180,7 @@ export class SlotMachine extends Component {
             }
             else {
                 console.log("Maximum speed reached");
-                rodillo.setPosition(0, distance * -result, 0); //poner rodillo donde queiro
+                rodillo.getParent().setPosition(rodillo.getParent().position.x, distance * -result, 0); //poner rodillo donde queiro
                 deAccelerate(animState, animSpeed);
             }
         }
@@ -188,7 +193,11 @@ export class SlotMachine extends Component {
                 setTimeout(() => {
                     deAccelerate(animState, animSpeed);
                 }, 300);
+            } else {
+
+                animationState.wrapMode = 1; // CAMBIAMOS EL MODO LOOP CUANDO LA VELOCIDAD ES BAJA PARA PARAR
             }
+
         }
 
     }

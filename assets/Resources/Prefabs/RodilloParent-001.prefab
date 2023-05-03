@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "RodilloParent",
+    "_name": "RodilloParent-001",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -581,7 +581,7 @@
     "__prefab": {
       "__id__": 23
     },
-    "_alignFlags": 2,
+    "_alignFlags": 0,
     "_target": null,
     "_left": 0,
     "_right": 0,
@@ -2344,10 +2344,7 @@
         "__expectedType__": "cc.AnimationClip"
       }
     ],
-    "_defaultClip": {
-      "__uuid__": "2a9127d8-1986-487e-8066-3c392897d07d",
-      "__expectedType__": "cc.AnimationClip"
-    },
+    "_defaultClip": null,
     "_id": ""
   },
   {
