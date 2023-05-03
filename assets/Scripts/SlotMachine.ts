@@ -56,6 +56,21 @@ export class SlotMachine extends Component {
     })
     SlotMachine: SpriteFrame = null!;
 
+    @property({
+        type: Number
+    })
+
+
+    distanceBetweenIcones: number = 125;
+
+
+
+
+
+
+
+
+
     start () {
 
         //this.animationRodillo.play("rodilloRoll");
@@ -70,9 +85,9 @@ export class SlotMachine extends Component {
 
     loadRodillos =() =>{
 
-        const rodilloLeft = ["Limon", "SlotMachine", "Siete", "Mora", "BigWin", "Fresa"];
-        const rodilloMid = ["BigWin", "Mora", "Siete", "SlotMachine", "Fresa", "Limon"];
-        const rodilloRight = ["Fresa", "Limon", "Siete", "BigWin", "SlotMachine", "Mora"];
+        const rodilloLeft = ["Siete", "Mora", "BigWin", "Fresa", "Limon", "SlotMachine"];
+        const rodilloMid = ["Siete", "SlotMachine", "Fresa", "Limon", "BigWin", "Mora"];
+        const rodilloRight = ["Siete", "BigWin", "SlotMachine", "Mora", "Fresa", "Limon"];
 
         this.rodillosLogic = [rodilloLeft, rodilloMid, rodilloRight];
         this.rodillosNodes = [this.rodilloLeftNode, this.rodilloMidNode, this.rodilloRightNode]
@@ -95,7 +110,6 @@ export class SlotMachine extends Component {
             }
         }
 
-        this.shuffleRodillos();
     }
 
     shuffleRodillos =() =>{
@@ -104,11 +118,26 @@ export class SlotMachine extends Component {
             return Math.floor(Math.random() * (max));
         }
 
-        //Seleccion RANDOM icono 
-        console.log(this.rodillosLogic[0][getRndInteger(this.rodillosLogic[0].length)]);
-        console.log(this.rodillosLogic[1][getRndInteger(this.rodillosLogic[1].length)]);
-        console.log(this.rodillosLogic[2][getRndInteger(this.rodillosLogic[2].length)]);
+        for (var i = 0; i < this.rodillosLogic.length; i++) {            //Seleccion RANDOM icono 
 
+            const randomNumber = getRndInteger(this.rodillosLogic[i].length)
+            console.log("Rodillo número " +i + ":")
+            console.log(this.rodillosLogic[i][randomNumber]);
+            moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
+        }
+
+
+
+        function moveRodillos(rodillos: Node, position: number, distance: number) {
+            rodillos.setPosition(0, distance * -position, 0);
+
+        }
+    }
+
+
+    public playButton() {
+
+        this.shuffleRodillos();
     }
 
 
