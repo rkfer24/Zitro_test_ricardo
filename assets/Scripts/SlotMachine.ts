@@ -86,7 +86,7 @@ export class SlotMachine extends Component {
     loadRodillos =() =>{
 
         const rodilloLeft = ["Siete", "Mora", "BigWin", "Fresa", "Limon", "SlotMachine"];
-        const rodilloMid = ["Siete", "SlotMachine", "Fresa", "Limon", "BigWin", "Mora"];
+        const rodilloMid = ["Siete", "SlotMachine", "Mora", "Limon", "BigWin", "Fresa"];
         const rodilloRight = ["Siete", "BigWin", "SlotMachine", "Mora", "Fresa", "Limon"];
 
         this.rodillosLogic = [rodilloLeft, rodilloMid, rodilloRight];
@@ -116,7 +116,7 @@ export class SlotMachine extends Component {
 
         if (!this.canISpin) return;
 
-        this.canISpin = false
+        //this.canISpin = false
 
 
         function getRndInteger(max) {
@@ -155,9 +155,10 @@ export class SlotMachine extends Component {
         //rodillo.setPosition(0, distance * -result, 0); poner rodillo donde queiro
 
         const animationRodillo = rodillo.getComponent(Animation);    
-        var animationState = animationRodillo.getState("rodilloRoll");
+        const animationState = animationRodillo.getState("rodilloRoll");
 
-
+        animationState.wrapMode = 1;
+        animationState.repeatCount = 100;
         animationState.speed = 0.1;
         animationRodillo.play();
 
@@ -180,7 +181,10 @@ export class SlotMachine extends Component {
             }
             else {
                 console.log("Maximum speed reached");
+
+
                 rodillo.getParent().setPosition(rodillo.getParent().position.x, distance * -result, 0); //poner rodillo donde queiro
+                animationState.repeatCount = 2;
                 deAccelerate(animState, animSpeed);
             }
         }
@@ -195,7 +199,6 @@ export class SlotMachine extends Component {
                 }, 300);
             } else {
 
-                animationState.wrapMode = 1; // CAMBIAMOS EL MODO LOOP CUANDO LA VELOCIDAD ES BAJA PARA PARAR
             }
 
         }
