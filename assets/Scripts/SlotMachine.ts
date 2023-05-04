@@ -1,15 +1,13 @@
 
-import { _decorator, Component, Node, Animation, SpriteFrame, Sprite, math, animation, } from 'cc';
+import { _decorator, Component, Node, Animation, SpriteFrame, Sprite, math, animation, find } from 'cc';
+import { GameManager } from './GameManager';
 const { ccclass, property } = _decorator;
 
 
 @ccclass('SlotMachine')
 export class SlotMachine extends Component {
 
-    @property({
-        type: Animation
-    })
-    animationRodillo: Animation = null!;
+    private gameManager: GameManager = null!;
 
     @property({
         type: Node
@@ -25,6 +23,11 @@ export class SlotMachine extends Component {
         type: Node
     })
     rodilloRightNode: Node = null!;
+
+    @property({
+        type: Node
+    })
+    wonWindow: Node = null!;
 
     @property({
         type: SpriteFrame
@@ -59,29 +62,32 @@ export class SlotMachine extends Component {
     @property({
         type: Number
     })
-
-    //distancia entre iconos en píxeles
-    distanceBetweenIcones: number = 125;
+    distanceBetweenIcones: number = 125; //distancia entre iconos en píxeles
 
     timeBetweenSpines: number = 2000; //in ms
 
     maxSpinSpeed: number = 2; 
     rodillosStopped = 0;
 
+    actualSymbols = [];
+
     canISpin = true;
 
-
+    
     //Creo Matrices para los rodillos lógica y Nodos para cambiar iconos
     rodillosLogic = [];
     rodillosNodes = [];
 
 
-    start () {
-
-        //this.animationRodillo.play("rodilloRoll");
-
+    onLoad () {
         this.loadRodillos();
 
+        const gameManagerNode = find("GameManager");
+        this.gameManager = gameManagerNode.getComponent("GameManager");
+    }
+
+    goHome() {
+        this.gameManager.changeScene("Menu");
     }
 
     public playButton() {
@@ -91,7 +97,6 @@ export class SlotMachine extends Component {
 
 
     loadRodillos = () => {
-
         //Tenemos unos valores predefinidos para los iconos, pero podría extraerse los iconos y la cantidad de ellos de un JSON
         const rodilloLeft = ["Siete", "Mora", "BigWin", "Fresa", "Limon", "SlotMachine"];
         const rodilloMid = ["Siete", "SlotMachine", "Mora", "Limon", "BigWin", "Fresa"];
@@ -103,7 +108,7 @@ export class SlotMachine extends Component {
 
         //Cargamos los iconos
         for (let j = 0; j < this.rodillosNodes.length; j++) {
-            for (let i = 0; i < (this.rodillosLogic[j].length * 2); i++) {
+            for (let i = 0; i < (this.rodillosLogic[j].length) * 2; i++) {
 
                 let indexIcon = i;
 
@@ -121,6 +126,9 @@ export class SlotMachine extends Component {
     spinRodillos = async () =>{
 
         this.canISpin = false;
+        this.rodillosStopped = 0;
+
+
         function getRndInteger(max) {
             return Math.floor(Math.random() * (max));
         }
@@ -129,7 +137,9 @@ export class SlotMachine extends Component {
 
             const randomNumber = getRndInteger(this.rodillosLogic[i].length)
             console.log(this.rodillosLogic[i][randomNumber]);
-            //moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
+
+            this.actualSymbols[i] = this.rodillosLogic[i][randomNumber];
+            //moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones); Mover los rodillos con transform
 
             this.animateRodillo(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones, this.maxSpinSpeed); //Llamamos a animacion
             await new Promise(resolve => setTimeout(resolve, this.timeBetweenSpines)); //Esperamos para ranzomizar el siguiente rodillo tiempo predefinido
@@ -163,10 +173,11 @@ export class SlotMachine extends Component {
             }
             else {
                 //En velocidad máxima definido por max
-                rodillo.getParent().setPosition(rodillo.getParent().position.x, distance * -result, 0); //Colocamos el padre para que la figura quede en el centro
 
-                console.log(rodillo.getParent().position.y);
-                console.log(-result);
+               
+                rodillo.getParent().getParent().setPosition(0, distance * -result, 0); //Colocamos el padre para que la figura quede en el centro
+
+                if (result > 2) rodillo.getParent().getParent().setPosition(0, (rodillo.getParent().getParent().position.y) - (125 * -6), 0); 
 
                 await deAccelerate(animState, animSpeed, animationState);
             }
@@ -179,28 +190,40 @@ export class SlotMachine extends Component {
             if (animSpeed > 0.2) {
                 await new Promise((resolve) => setTimeout(resolve, 300));
                 await deAccelerate(animState, animSpeed, animationState);
-            } else {
+            } else if (animSpeed > 0.1) {
+
+                await new Promise((resolve) => setTimeout(resolve, 600));
+                await deAccelerate(animState, animSpeed, animationState);
                 animationState.repeatCount = 1; // La velocidad es baja y hacemos que se hagan 2 repeticiones más hasta parar
-                this.finishAnimation();
+
             }
         }
 
-        
-
+        this.finishAnimation();
 
     }        
 
     finishAnimation = () =>{
 
-        console.log("Test");
+
         this.rodillosStopped++;
+
         if (this.rodillosStopped < 2) return;
-        console.log("Test2");
-        this.rodillosStopped = 0;
+
+
+        console.log(this.actualSymbols[this.rodillosStopped]);
+
+        if (this.actualSymbols[0] == this.actualSymbols[1] == this.actualSymbols[2]) {
+            console.log("You WON");
+            this.showWonWindow();
+        }
         this.canISpin = true;
-        this.loadRodillos();
+    }
 
-
+    async showWonWindow() {
+        this.wonWindow.active = true;
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        this.wonWindow.active = false;
     }
 
 }

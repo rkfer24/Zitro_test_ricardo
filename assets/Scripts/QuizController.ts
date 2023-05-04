@@ -79,7 +79,6 @@ export class QuizController extends Component {
 
     goHome() {
         this.gameManager.changeScene("Menu");
-
     }
 
     beginQuiz = () => {
