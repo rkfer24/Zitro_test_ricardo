@@ -69,9 +69,6 @@ export class Menu extends Component {
 
         var time = h + ":" + m + ":" + s + " " + session;
 
-        document.getElementById("MyClockDisplay").innerText = time;
-        document.getElementById("MyClockDisplay").textContent = time;
-
         setTimeout(() => {
             const now = new Date(date);
             now.setSeconds((now.getSeconds()) + 1 );
