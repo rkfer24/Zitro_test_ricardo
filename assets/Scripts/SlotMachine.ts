@@ -128,7 +128,6 @@ export class SlotMachine extends Component {
         this.canISpin = false;
         this.rodillosStopped = 0;
 
-
         function getRndInteger(max) {
             return Math.floor(Math.random() * (max));
         }
@@ -139,7 +138,7 @@ export class SlotMachine extends Component {
             console.log(this.rodillosLogic[i][randomNumber]);
 
             this.actualSymbols[i] = this.rodillosLogic[i][randomNumber];
-            //moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones); Mover los rodillos con transform
+            
 
             this.animateRodillo(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones, this.maxSpinSpeed); //Llamamos a animacion
             await new Promise(resolve => setTimeout(resolve, this.timeBetweenSpines)); //Esperamos para ranzomizar el siguiente rodillo tiempo predefinido
@@ -161,6 +160,7 @@ export class SlotMachine extends Component {
         animationRodillo.play();
 
         
+
         await accelerate(animationState, animationState.speed, maxSpinSpeed); //Aceleración inicio animación
 
         async function accelerate(animState, animSpeed: number, maxSpinSpeed: number) {
@@ -210,20 +210,24 @@ export class SlotMachine extends Component {
 
         if (this.rodillosStopped < 2) return;
 
+        console.log("Trying to win");
 
-        console.log(this.actualSymbols[this.rodillosStopped]);
+        console.log(this.actualSymbols[0]);
 
-        if (this.actualSymbols[0] == this.actualSymbols[1] == this.actualSymbols[2]) {
-            console.log("You WON");
+        if (this.actualSymbols[0] == this.actualSymbols[1] && this.actualSymbols[1] == this.actualSymbols[2]) {
             this.showWonWindow();
+            return;
         }
         this.canISpin = true;
     }
 
-    async showWonWindow() {
+    showWonWindow = async () => {
+
+        await new Promise(resolve => setTimeout(resolve, 3000));
         this.wonWindow.active = true;
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 5000));
         this.wonWindow.active = false;
+        this.canISpin = true;
     }
 
 }
