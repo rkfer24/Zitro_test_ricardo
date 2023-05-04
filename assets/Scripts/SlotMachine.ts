@@ -60,15 +60,20 @@ export class SlotMachine extends Component {
         type: Number
     })
 
-
+    //distancia entre iconos en píxeles
     distanceBetweenIcones: number = 125;
+
+    timeBetweenSpines: number = 2000; //in ms
+
+    maxSpinSpeed: number = 2; 
+
 
     private canISpin = true;
 
 
-
-
-
+    //Creo Matrices para los rodillos lógica y Nodos para cambiar iconos
+    rodillosLogic = [];
+    rodillosNodes = [];
 
 
     start () {
@@ -79,12 +84,15 @@ export class SlotMachine extends Component {
 
     }
 
+    public playButton() {
+        if (!this.canISpin) return;
+        this.spinRodillos();
+    }
 
-    rodillosLogic = [];
-    rodillosNodes = [];
 
-    loadRodillos =() =>{
+    loadRodillos = () => {
 
+        //Tenemos unos valores predefinidos para los iconos, pero podría extraerse los iconos y la cantidad de ellos de un JSON
         const rodilloLeft = ["Siete", "Mora", "BigWin", "Fresa", "Limon", "SlotMachine"];
         const rodilloMid = ["Siete", "SlotMachine", "Mora", "Limon", "BigWin", "Fresa"];
         const rodilloRight = ["Siete", "BigWin", "SlotMachine", "Mora", "Fresa", "Limon"];
@@ -92,100 +100,75 @@ export class SlotMachine extends Component {
         this.rodillosLogic = [rodilloLeft, rodilloMid, rodilloRight];
         this.rodillosNodes = [this.rodilloLeftNode, this.rodilloMidNode, this.rodilloRightNode]
 
-        for (var j = 0; j < this.rodillosNodes.length; j++) {
 
-            for (var i = 0; i < (this.rodillosLogic[j].length * 2); i++) {
+        //Cargamos los iconos
+        for (let j = 0; j < this.rodillosNodes.length; j++) {
+            for (let i = 0; i < (this.rodillosLogic[j].length * 2); i++) {
 
-                var indexIcon = i;
+                let indexIcon = i;
 
                 if (indexIcon >= this.rodillosLogic[j].length) {
-
                     // Para el truco de duplicar los rollos y tenemos que restar el tamaño del rollo cuando llegamos al límite
                     indexIcon = indexIcon - this.rodillosLogic[j].length;
                 }
-
                 const icon = this.rodillosLogic[j][indexIcon]; // seleccionamos el string del icono de la lista que tiene que coincidir con el nombre de las properties antes creadas
-
-                this.rodillosNodes[j].getChildByName(i.toString()).getComponent(Sprite).spriteFrame = this[icon]; // cambiamos el sprite del nodo de los rodillos
+                this.rodillosNodes[j].getChildByName(i.toString()).getComponent(Sprite).spriteFrame = this[icon]; // Cambiamos el spire
             }
         }
 
     }
 
     spinRodillos = async () =>{
-
         if (!this.canISpin) return;
-
-        //this.canISpin = false
-
 
         function getRndInteger(max) {
             return Math.floor(Math.random() * (max));
         }
-
-        for (var i = 0; i < this.rodillosLogic.length; i++) {            //Seleccion RANDOM icono 
+        //Seleccion RANDOM posicion
+        for (let i = 0; i < this.rodillosLogic.length; i++) {
 
             const randomNumber = getRndInteger(this.rodillosLogic[i].length)
-            console.log("Rodillo número " +i + ":")
             console.log(this.rodillosLogic[i][randomNumber]);
             //moveRodillos(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
 
-            this.animateRodillo(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones);
-
-            await new Promise(resolve => setTimeout(resolve, 2000)); //Tiempo de 2 segundos entre ellos yendo de izq a derecha
+            this.animateRodillo(this.rodillosNodes[i], randomNumber, this.distanceBetweenIcones, this.maxSpinSpeed); //Llamamos a animacion
+            await new Promise(resolve => setTimeout(resolve, this.timeBetweenSpines)); //Esperamos para ranzomizar el siguiente rodillo tiempo predefinido
         }
-
-    }
-
-
-    public playButton() {
-
-        if (!this.canISpin){
-            return;
-        }
-
-        this.spinRodillos();
     }
 
 
 
-    animateRodillo = async (rodillo: Node, result: number, distance: number) => {
+    animateRodillo = async (rodillo: Node, result: number, distance: number, maxSpinSpeed: number) => {
 
         
-        //rodillo.setPosition(0, distance * -result, 0); poner rodillo donde queiro
-
         const animationRodillo = rodillo.getComponent(Animation);    
         const animationState = animationRodillo.getState("rodilloRoll");
 
-        animationState.wrapMode = 1;
+        //Reseteamos valores animacion 
+        animationState.wrapMode = 1; 
         animationState.repeatCount = 100;
         animationState.speed = 0.1;
         animationRodillo.play();
 
-        
-        console.log("ANIMATION WRAP MODE?" + animationState.wrapMode);
+        accelerate(animationState, animationState.speed, maxSpinSpeed); //Aceleración inicio animación
 
-        accelerate(animationState, 0.1);
-
-        
-
-        async function accelerate(animState, animSpeed: number) {
+        async function accelerate(animState, animSpeed: number, maxSpinSpeed:number) {
 
             animSpeed += 0.1;
             animState.speed = animSpeed;
 
             if (animSpeed < 2) {
                 setTimeout(() => {
-                    accelerate(animState, animSpeed);
+                    accelerate(animState, animSpeed, maxSpinSpeed);
                 }, 300);
             }
             else {
-                console.log("Maximum speed reached");
+                //En velocidad máxima definido por max
+                rodillo.getParent().setPosition(rodillo.getParent().position.x, distance * -result, 0); //Colocamos el padre para que la figura quede en el centro
+                deAccelerate(animState, animSpeed); //llamamos a desacelerar ahora que la velocidad es máxima
 
 
-                rodillo.getParent().setPosition(rodillo.getParent().position.x, distance * -result, 0); //poner rodillo donde queiro
-                animationState.repeatCount = 2;
-                deAccelerate(animState, animSpeed);
+                console.log(rodillo.getParent.name);
             }
         }
 
@@ -198,10 +181,16 @@ export class SlotMachine extends Component {
                     deAccelerate(animState, animSpeed);
                 }, 300);
             } else {
+                animationState.repeatCount = 2; // La velocidad es baja y hacemos que se hagan 2 repeticiones más hasta parar
 
+                //if (rodillo.position.x > 10) this.printResult;
             }
 
         }
+
+    }
+
+    printResult() {
 
     }
 }

@@ -4,11 +4,11 @@
     "_name": "rodilloRoll",
     "_objFlags": 0,
     "_native": "",
-    "sample": 60,
-    "speed": 1,
-    "wrapMode": 2,
+    "sample": 24,
+    "speed": 0.2,
+    "wrapMode": 0,
     "enableTrsBlending": false,
-    "_duration": 0.5,
+    "_duration": 0.4166666666666667,
     "_hash": 500763545,
     "_tracks": [
       {
@@ -71,7 +71,7 @@
     "__type__": "cc.RealCurve",
     "_times": [
       0,
-      0.5
+      0.4166666567325592
     ],
     "_values": [
       {
