@@ -6,7 +6,7 @@
     "_native": "",
     "sample": 24,
     "speed": 0.2,
-    "wrapMode": 0,
+    "wrapMode": 1,
     "enableTrsBlending": false,
     "_duration": 0.4166666666666667,
     "_hash": 500763545,

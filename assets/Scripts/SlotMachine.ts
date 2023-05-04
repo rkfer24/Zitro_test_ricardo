@@ -66,9 +66,9 @@ export class SlotMachine extends Component {
     timeBetweenSpines: number = 2000; //in ms
 
     maxSpinSpeed: number = 2; 
+    rodillosStopped = 0;
 
-
-    private canISpin = true;
+    canISpin = true;
 
 
     //Creo Matrices para los rodillos lógica y Nodos para cambiar iconos
@@ -119,8 +119,8 @@ export class SlotMachine extends Component {
     }
 
     spinRodillos = async () =>{
-        if (!this.canISpin) return;
 
+        this.canISpin = false;
         function getRndInteger(max) {
             return Math.floor(Math.random() * (max));
         }
@@ -150,49 +150,59 @@ export class SlotMachine extends Component {
         animationState.speed = 0.1;
         animationRodillo.play();
 
-        accelerate(animationState, animationState.speed, maxSpinSpeed); //Aceleración inicio animación
+        
+        await accelerate(animationState, animationState.speed, maxSpinSpeed); //Aceleración inicio animación
 
-        async function accelerate(animState, animSpeed: number, maxSpinSpeed:number) {
-
+        async function accelerate(animState, animSpeed: number, maxSpinSpeed: number) {
             animSpeed += 0.1;
             animState.speed = animSpeed;
 
             if (animSpeed < 2) {
-                setTimeout(() => {
-                    accelerate(animState, animSpeed, maxSpinSpeed);
-                }, 300);
+                await new Promise((resolve) => setTimeout(resolve, 300));
+                await accelerate(animState, animSpeed, maxSpinSpeed);
             }
             else {
                 //En velocidad máxima definido por max
                 rodillo.getParent().setPosition(rodillo.getParent().position.x, distance * -result, 0); //Colocamos el padre para que la figura quede en el centro
-                deAccelerate(animState, animSpeed); //llamamos a desacelerar ahora que la velocidad es máxima
 
+                console.log(rodillo.getParent().position.y);
+                console.log(-result);
 
-                console.log(rodillo.getParent.name);
+                await deAccelerate(animState, animSpeed, animationState);
             }
         }
 
-        function deAccelerate(animState, animSpeed) {
+        async function deAccelerate(animState, animSpeed, animationState) {
             animSpeed -= 0.1;
             animState.speed = animSpeed;
 
             if (animSpeed > 0.2) {
-                setTimeout(() => {
-                    deAccelerate(animState, animSpeed);
-                }, 300);
+                await new Promise((resolve) => setTimeout(resolve, 300));
+                await deAccelerate(animState, animSpeed, animationState);
             } else {
-                animationState.repeatCount = 2; // La velocidad es baja y hacemos que se hagan 2 repeticiones más hasta parar
-
-                //if (rodillo.position.x > 10) this.printResult;
+                animationState.repeatCount = 1; // La velocidad es baja y hacemos que se hagan 2 repeticiones más hasta parar
+                this.finishAnimation();
             }
-
         }
 
+        
+
+
+    }        
+
+    finishAnimation = () =>{
+
+        console.log("Test");
+        this.rodillosStopped++;
+        if (this.rodillosStopped < 2) return;
+        console.log("Test2");
+        this.rodillosStopped = 0;
+        this.canISpin = true;
+        this.loadRodillos();
+
+
     }
 
-    printResult() {
-
-    }
 }
 
 
