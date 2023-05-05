@@ -22,8 +22,8 @@ En este caso, se encarga solo de gestionar las cargas entre escenas. Lo mejorar√
 - validar el GameManager en cada escena como pasa ahora puede casuar errores si no se encuentra.
 
 ///////////////////////////////////////////////////GameLoader.ts//////////////////////////////////////////////////
-Para simular la carga, loadingSimulator devuelve una promise representando si la carga ha sido completada o no. 
 
+Para simular la carga, loadingSimulator devuelve una promise representando si la carga ha sido completada o no. 
 
 Lo mejorar√≠a:
 
