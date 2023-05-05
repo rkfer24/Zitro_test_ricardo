@@ -1,15 +1,13 @@
 # Zitro_test_ricardo
-////////////
-//README
-///////////
+
+README
+
 En general estoy contento con que funcione el proyecto, pero creo que hay muchas cosas a mejorar, entre ellas ordenar los elementos en layers y trabajar la estética mas allá de la lógica, sobretodo en la SlotMachine. Me ha dado el tiempo justo para acabarlo sin poder repasar y optimizar la aplicación. Siendo la primera vez que tocaba Typescript y Cocos, he necesitado también probar métodos que a veces podian ser más sencillos pero no tan eficientes.
 
 
 
 
-//////////////////////////////////////
-/////////////GameManager.ts///////////
-//////////////////////////////////////
+///////////////////////////////////////////////////GameManager.ts/////////////////////////////////////////////////
 
 Decido crear un GameManager para gestionar el cambio y el control entre escenas. Si el proyecto fuera más grande, creo que tendría sentido desarrollar cada función de forma más modular para controlar por ejemplo cambios de escenas, personalización de plataformas, gestion de audio, carga y guardado de datos persistentes, etc por separado.
 
@@ -23,9 +21,7 @@ En este caso, se encarga solo de gestionar las cargas entre escenas. Lo mejorar�
 
 - validar el GameManager en cada escena como pasa ahora puede casuar errores si no se encuentra.
 
-//////////////////////////////////////
-/////////////GameLoader.ts////////////
-//////////////////////////////////////
+///////////////////////////////////////////////////GameLoader.ts//////////////////////////////////////////////////
 Para simular la carga, loadingSimulator devuelve una promise representando si la carga ha sido completada o no. 
 
 
@@ -34,9 +30,7 @@ Lo mejoraría:
 - introducir una función de manejo de errores para mostrar qué ha fallado.
 
 
-/////////////////////////////////////
-/////////////Menu.ts/////////////////
-/////////////////////////////////////
+//////////////////////////////////////////////////Menu.ts//////////////////////////////////////////////////////
 
 Nunca antes había hecho una request API. Inicialmente se consultaba cada segundo a la url, pero creo que era innecesario e implementé un código de un reloj que encontré rápidamente para actualizar el tiempo después de hacer una primera llamada para establecer la hora actual.
 
@@ -48,9 +42,7 @@ Pueden haber problemas de desincronización y quizás sería interesante repetir
 
 
 
-//////////////////////////////////////
-/////////////QuizController.ts////////
-//////////////////////////////////////
+///////////////////////////////////////////////////QuizController.ts//////////////////////////////////////////////
 
 Decido randomizar el orden de las preguntas y las respuestas. Aunque no es necesario me pareció interesante probarlo. Utilizo el algoritmo Fisher-Yates porque no lo había utilizado nunca y he visto que es un algoritmo de randomización usual en los juegos de azar, lo que me pareció relevante para el test.
 
@@ -65,9 +57,7 @@ Creo que el código está separado por funcionalidades y eso me parece bien. Mej
 - sonidos acierto/error/animacion.
 
 
-//////////////////////////////////////
-/////////////SlotMachine.ts///////////
-//////////////////////////////////////
+///////////////////////////////////////////////////SlotMachine.ts/////////////////////////////////////////////////
 
 La idea era familiarizarme con las animaciones de Cocos y con su control a través AnimationController. Al final he tenido algunos problemas con el renderizado de los iconos( y me he visto obligado a no dejarlo tan smooth), creo porque los sprites estaban fuera de la pantalla a la hora de dibujarlos, pero tendría que investigar más y familiarizarme con la herramienta.
 
